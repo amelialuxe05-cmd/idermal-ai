@@ -1,7 +1,4 @@
-;
-
-  const updateRoutine = async (id: string, updated: any) => {
-    const { error } = await supabase.from('routines').update(updated).eq('id', id);
+const { error } = await supabase.from('routines').update(updated).eq('id', id);
     if (!error) setRoutines(prev => prev.map(r => r.id === id ? { ...r, ...updated } : r));
     return { success: !error };
   };
@@ -15,7 +12,7 @@
   return { routines, loading, error: null, createRoutine, updateRoutine, deleteRoutine };
 }
 
-// 6. Истински хук за авторизация (Поправя Sign Out бутона)
+// 6. Истински хук за авторизация
 export function useAuth() {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -42,7 +39,7 @@ export function useAuth() {
   return { user, loading, error: null, signOut };
 }
 
-// 7. Помощни празни експорти за неактивни компоненти
+// 7. Помощни експорти
 export function useSkinAnalysis() { return { analyzeSkin: async () => ({ success: true }), loading: false }; }
 export function useScans() { return { scans: [], loading: false, error: null, refreshScans: async () => {} }; }
 export function useHistory() { return { history: [], loading: false, error: null, clearHistory: async () => {} }; }
