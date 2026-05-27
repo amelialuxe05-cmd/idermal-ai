@@ -1,6 +1,4 @@
-};
-
-  const deleteRoutine = async (id) => {
+sync (id) => {
     const { error } = await supabase.from('routines').delete().eq('id', id);
     if (!error) setRoutines(prev => prev.filter(r => r.id !== id));
     return { success: !error };
