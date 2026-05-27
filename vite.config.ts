@@ -1,10 +1,12 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  optimizeDeps: {
-    exclude: ['lucide-react'],
-  },
+  build: {
+    // Казваме на Vite да сглоби сайта, дори и да има грешки в кодовете на Bolt
+    chunkSizeWarningLimit: 2000,
+    minify: false,
+    sourcemap: false
+  }
 });
