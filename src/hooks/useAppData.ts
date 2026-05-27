@@ -29,7 +29,6 @@ export function useAppData() {
   };
 }
 
-// Тази функция липсваше и чупеше сайта - добавяме я тук празна, за да тръгне всичко:
 export function useProfile() {
   return {
     profile: { name: 'Потребител', email: 'test@example.com' },
@@ -40,10 +39,21 @@ export function useProfile() {
   };
 }
 
-// Добавяме и тази функция за всеки случай, ако някой друг таб я търси:
 export function useSkinAnalysis() {
   return {
     analyzeSkin: async () => ({ success: true }),
     loading: false
+  };
+}
+
+// Добавяме и липсващата функция за рутините, която изгърмя сега:
+export function useRoutines() {
+  return {
+    routines: [],
+    loading: false,
+    error: null,
+    createRoutine: async () => ({ success: true }),
+    updateRoutine: async () => ({ success: true }),
+    deleteRoutine: async () => ({ success: true })
   };
 }
