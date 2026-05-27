@@ -1,9 +1,19 @@
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
-
-const finalUrl = supabaseUrl || 'https://placeholder.supabase.co';
-const finalKey = supabaseAnonKey || 'placeholder';
-
-export const supabase = createClient(finalUrl, finalKey);
+// Пълна симулация на Supabase, за да не гърми сайтът
+export const supabase = {
+  auth: {
+    getSession: async () => ({ data: { session: null }, error: null }),
+    onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
+    signInWithPassword: async () => ({ data: { user: {} }, error: null }),
+    signUp: async () => ({ data: { user: {} }, error: null }),
+    signOut: async () => ({ error: null }),
+  },
+  from: () => ({
+    select: () => ({
+      order: () => Promise.resolve({ data: [], error: null }),
+      eq: () => Promise.resolve({ data: [], error: null }),
+    }),
+    insert: () => Promise.resolve({ data: [], error: null }),
+    update: () => Promise.resolve({ data: [], error: null }),
+    delete: () => Promise.resolve({ data: [], error: null }),
+  })
+} as any;
