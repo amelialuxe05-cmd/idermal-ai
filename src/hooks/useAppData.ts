@@ -1,32 +1,76 @@
 import { useState, useEffect } from 'react';
 
+// 1. Основен хук useAppData
 export function useAppData() {
+  const [products] = useState([
+    { id: '1', name: 'Дерматологичен Анализ AI', price: 49.99, description: 'Пълен сканиращ анализ на кожата' },
+    { id: '2', name: 'Персонализиран План', price: 29.99, description: 'Дневен и нощен режим за възстановяване' }
+  ]);
+  const [scans, setScans] = useState([]);
+  const [loading] = useState(false);
+  const [error] = useState(null);
+
+  const addScan = async (scanData: any) => {
+    const newScan = { id: Date.now().toString(), ...scanData, created_at: new Date().toISOString() };
+    setScans((prev: any) => [newScan, ...prev]);
+    return { data: newScan, error: null };
+  };
+
   return {
-    products: [],
-    scans: [],
-    loading: false,
-    error: null,
-    addScan: async () => ({ data: null, error: null }),
+    products,
+    scans,
+    loading,
+    error,
+    addScan,
     refreshData: async () => {}
   };
 }
 
+// 2. Хук useProducts (който ProductsTab.tsx търси)
 export function useProducts() {
-  return { products: [], loading: false, error: null, refreshProducts: async () => {} };
+  return {
+    products: [
+      { id: '1', name: 'Дерматологичен Анализ AI', price: 49.99, description: 'Пълен сканиращ анализ на кожата' },
+      { id: '2', name: 'Персонализиран План', price: 29.99, description: 'Дневен и нощен режим за възстановяване' }
+    ],
+    loading: false,
+    error: null,
+    refreshProducts: async () => {}
+  };
 }
 
+// 3. Хук useProfile (който HomeTab.tsx търси)
 export function useProfile() {
-  return { profile: { name: 'Потребител', email: 'test@example.com' }, loading: false, error: null, updateProfile: async () => ({ success: true }), refreshProfile: async () => {} };
+  return {
+    profile: { name: 'Потребител', email: 'test@example.com' },
+    loading: false,
+    error: null,
+    updateProfile: async () => ({ success: true }),
+    refreshProfile: async () => {}
+  };
 }
 
-export function useSkinAnalysis() {
-  return { analyzeSkin: async () => ({ success: true }), loading: false };
-}
-
+// 4. Хук useRoutines (който RoutineTab.tsx търси)
 export function useRoutines() {
-  return { routines: [], loading: false, error: null, createRoutine: async () => ({ success: true }), updateRoutine: async () => ({ success: true }), deleteRoutine: async () => ({ success: true }) };
+  return {
+    routines: [],
+    loading: false,
+    error: null,
+    createRoutine: async () => ({ success: true }),
+    updateRoutine: async () => ({ success: true }),
+    deleteRoutine: async () => ({ success: true })
+  };
 }
 
+// 5. Хук useSkinAnalysis (застраховка за анализа)
+export function useSkinAnalysis() {
+  return {
+    analyzeSkin: async () => ({ success: true }),
+    loading: false
+  };
+}
+
+// 6. Допълнителни хукове за пълно покритие
 export function useScans() {
   return { scans: [], loading: false, error: null, refreshScans: async () => {} };
 }
