@@ -29,6 +29,19 @@ export function useAppData() {
   };
 }
 
+// Поправката за ProductsTab
+export function useProducts() {
+  return {
+    products: [
+      { id: '1', name: 'Дерматологичен Анализ AI', price: 49.99, description: 'Пълен сканиращ анализ на кожата' },
+      { id: '2', name: 'Персонализиран План', price: 29.99, description: 'Дневен и нощен режим за възстановяване' }
+    ],
+    loading: false,
+    error: null,
+    refreshProducts: async () => {}
+  };
+}
+
 export function useProfile() {
   return {
     profile: { name: 'Потребител', email: 'test@example.com' },
@@ -46,7 +59,6 @@ export function useSkinAnalysis() {
   };
 }
 
-// Добавяме и липсващата функция за рутините, която изгърмя сега:
 export function useRoutines() {
   return {
     routines: [],
@@ -55,5 +67,15 @@ export function useRoutines() {
     createRoutine: async () => ({ success: true }),
     updateRoutine: async () => ({ success: true }),
     deleteRoutine: async () => ({ success: true })
+  };
+}
+
+// Застраховка, ако някой компонент търси история на сканиранията
+export function useScans() {
+  return {
+    scans: [],
+    loading: false,
+    error: null,
+    refreshScans: async () => {}
   };
 }
