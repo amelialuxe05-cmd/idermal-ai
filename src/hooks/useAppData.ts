@@ -16,17 +16,21 @@ export function useAppData() {
     return { data: newScan, error: null };
   };
 
+  return { products, scans, loading, error, addScan, refreshData: async () => {} };
+}
+
+// 2. ХУКЪТ, КОЙТО ЛИПСВАШЕ (За ProgressTab.tsx)
+export function useProgress() {
   return {
-    products,
-    scans,
-    loading,
-    error,
-    addScan,
-    refreshData: async () => {}
+    progress: [],
+    loading: false,
+    error: null,
+    refreshProgress: async () => {},
+    addProgressEntry: async () => ({ success: true })
   };
 }
 
-// 2. Хук useProducts (който ProductsTab.tsx търси)
+// 3. Останалите хукове за пълна безопасност
 export function useProducts() {
   return {
     products: [
@@ -39,38 +43,18 @@ export function useProducts() {
   };
 }
 
-// 3. Хук useProfile (който HomeTab.tsx търси)
 export function useProfile() {
-  return {
-    profile: { name: 'Потребител', email: 'test@example.com' },
-    loading: false,
-    error: null,
-    updateProfile: async () => ({ success: true }),
-    refreshProfile: async () => {}
-  };
+  return { profile: { name: 'Потребител', email: 'test@example.com' }, loading: false, error: null, updateProfile: async () => ({ success: true }), refreshProfile: async () => {} };
 }
 
-// 4. Хук useRoutines (който RoutineTab.tsx търси)
 export function useRoutines() {
-  return {
-    routines: [],
-    loading: false,
-    error: null,
-    createRoutine: async () => ({ success: true }),
-    updateRoutine: async () => ({ success: true }),
-    deleteRoutine: async () => ({ success: true })
-  };
+  return { routines: [], loading: false, error: null, createRoutine: async () => ({ success: true }), updateRoutine: async () => ({ success: true }), deleteRoutine: async () => ({ success: true }) };
 }
 
-// 5. Хук useSkinAnalysis (застраховка за анализа)
 export function useSkinAnalysis() {
-  return {
-    analyzeSkin: async () => ({ success: true }),
-    loading: false
-  };
+  return { analyzeSkin: async () => ({ success: true }), loading: false };
 }
 
-// 6. Допълнителни хукове за пълно покритие
 export function useScans() {
   return { scans: [], loading: false, error: null, refreshScans: async () => {} };
 }
